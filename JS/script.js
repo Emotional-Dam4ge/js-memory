@@ -3,10 +3,15 @@ let secondCard = null;
 let lockBoard = false;
 let moves = 0;
 let matchedCount = 0;
+let seconds = 0;
+let timerInterval = null;
 
+
+const board = document.getElementById("game-board");
+const movesDisplay = document.getElementById("moves");
+const timerDisplay = document.getElementById("timer");
 
 const dimension = 150;
-const board = document.getElementById("game-board");
 const imgStart = Math.floor(Math.random() * 99) + 1;
 
 const images = []
@@ -29,6 +34,7 @@ function shuffle(array){
 
 function initGame(){
     board.innerHTML = "";
+    startTimer();
 
     shuffle(cards);
     cards.forEach((imgUrl) => {
@@ -59,6 +65,7 @@ function handleCardClick(card){
         revealCard(card);
         secondCard = card;
         moves++;
+        movesDisplay.textContent =`Number of moves : ${moves}`;
         lockBoard = true;
         checkMatch()
     }
@@ -95,6 +102,19 @@ function resetTurn(){
     secondCard = null;
 }
 
+
+function formatTime(sec){
+    const s = String(sec % 60).padStart(2,'0');
+    const min = String(Math.floor(sec/60)).padStart(2,'0');
+    return `${min}:${s}`;
+}
+
+function startTimer(){
+    timerIntervalle = setInterval(() => {
+        timerDisplay.textContent = ` Time : ${formatTime(seconds)}`;
+        seconds++;
+    },1000)
+}
 
 
 
