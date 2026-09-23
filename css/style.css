@@ -1,0 +1,19 @@
+.cards{
+    width: 150px;
+    height: 150px;
+    background-color: aquamarine;
+    margin: 25px 25px;
+}
+
+.matched{
+
+}
+
+#game-board{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    
+    width: 600px;
+
+
+}
