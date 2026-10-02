@@ -44,7 +44,7 @@ function initGame(){
     secondCard = null;
     lockBoard = false; 
 
-    movesDisplay.textContent = `Number of moves ${moves}`;
+    movesDisplay.textContent = `Number of moves : ${moves}`;
     timerDisplay.textContent = `Times : 00:00`;
 
     shuffle(cards);
