@@ -10,6 +10,8 @@ let timerInterval = null;
 const board = document.getElementById("game-board");
 const movesDisplay = document.getElementById("moves");
 const timerDisplay = document.getElementById("timer");
+const resultDisplay = document.getElementById("result")
+const restartButton = document.getElementById("restartBtn")
 
 const dimension = 150;
 const imgStart = Math.floor(Math.random() * 99) + 1;
@@ -34,7 +36,16 @@ function shuffle(array){
 
 function initGame(){
     board.innerHTML = "";
-    startTimer();
+    resultDisplay.textContent = "";
+    moves = 0;
+    matchedCount = 0;
+    seconds = 0;
+    firstCard = null;
+    secondCard = null;
+    lockBoard = false; 
+
+    movesDisplay.textContent = `Number of Moves ${moves}`;
+    timerDisplay.textContent = `Times : 00:00`;
 
     shuffle(cards);
     cards.forEach((imgUrl) => {
@@ -49,6 +60,8 @@ function initGame(){
         card.addEventListener("click", () => handleCardClick(card));
 
     })
+    clearInterval(timerInterval); 
+    startTimer();
 }
 
 function handleCardClick(card){
@@ -91,10 +104,19 @@ function checkMatch(){
     else {
         firstCard.classList.add("matched");
         secondCard.classList.add("matched");
-        matchedCount++;
+        matchedCount+=2;
         resetTurn();
+        checkVictory();
     }
 }
+
+function checkVictory(){
+    if(matchedCount === cards.length){
+        resultDisplay.textContent = "Victoire";
+        clearInterval(timerInterval);
+    }
+}
+
 
 function resetTurn(){
     lockBoard = false;
@@ -110,14 +132,13 @@ function formatTime(sec){
 }
 
 function startTimer(){
-    timerIntervalle = setInterval(() => {
-        timerDisplay.textContent = ` Time : ${formatTime(seconds)}`;
+    timerInterval = setInterval(() => {
+        timerDisplay.textContent = ` Times : ${formatTime(seconds)}`;
         seconds++;
     },1000)
 }
 
-
-
+restartButton.addEventListener("click", initGame);
 window.onload = initGame;
 
 
