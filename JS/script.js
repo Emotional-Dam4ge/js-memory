@@ -44,7 +44,7 @@ function initGame(){
     secondCard = null;
     lockBoard = false; 
 
-    movesDisplay.textContent = `Number of Moves ${moves}`;
+    movesDisplay.textContent = `Number of moves ${moves}`;
     timerDisplay.textContent = `Times : 00:00`;
 
     shuffle(cards);
@@ -112,7 +112,7 @@ function checkMatch(){
 
 function checkVictory(){
     if(matchedCount === cards.length){
-        resultDisplay.textContent = "Victoire";
+        resultDisplay.textContent = `Victoire ! Moves : ${moves} | Temps : ${formatTime(seconds)}`;
         clearInterval(timerInterval);
     }
 }
@@ -133,8 +133,8 @@ function formatTime(sec){
 
 function startTimer(){
     timerInterval = setInterval(() => {
-        timerDisplay.textContent = ` Times : ${formatTime(seconds)}`;
         seconds++;
+        timerDisplay.textContent = ` Times : ${formatTime(seconds)}`;
     },1000)
 }
 
